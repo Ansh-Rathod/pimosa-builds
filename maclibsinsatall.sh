@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the HOME environment variable (if needed)
-export HOME="\$HOME"
+export HOME="$HOME"
 
 # Source environment configuration files
 if [ -f ~/.bash_profile ]; then
@@ -29,10 +29,10 @@ if [ -f ~/.zlogin ]; then
 fi
 
 # Determine the architecture
-ARCH=\$(uname -m)
+ARCH=$(uname -m)
 
 # Set the default Homebrew installation path based on the architecture
-if [[ "\$ARCH" == "x86_64" ]]; then
+if [[ "$ARCH" == "x86_64" ]]; then
   # Intel Macs
   HOMEBREW_PREFIX="/usr/local"
 else
@@ -45,13 +45,13 @@ if ! command -v brew &>/dev/null; then
   echo "Homebrew is not installed. Installing Homebrew..."
 
   # Run the Homebrew installation script and automatically press Enter
-  yes '' | /bin/bash -c "\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  yes '' | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # Add Homebrew to PATH
-  if [[ "\$ARCH" == "x86_64" ]]; then
-    echo 'eval "\$(/usr/local/bin/brew shellenv)"' >> ~/.bash_profile
+  if [[ "$ARCH" == "x86_64" ]]; then
+    echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.bash_profile
   else
-    echo 'eval "\$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
   fi
 
   # Source the updated profile
