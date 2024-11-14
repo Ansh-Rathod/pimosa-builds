@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "v1"
 # Set the HOME environment variable (if needed)
 export HOME="$HOME"
 
