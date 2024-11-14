@@ -112,7 +112,7 @@ if $all_installed; then
   echo -e "ImageMagick path: $IMAGEMAGICK_PATH"
   echo -e "---------------------------------\n"
 
-  echo -e "All checks and installations are completed.\n"
+  echo -e "All checks and installations are completed."
 else
-  echo -e "\nError: An error occurred during one or more installations. Paths will not be printed.\n"
+  echo -e "\nError: An error occurred during one or more installations."
 fi
