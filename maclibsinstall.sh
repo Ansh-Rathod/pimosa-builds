@@ -45,7 +45,7 @@ all_installed=true
 
 # Check if Homebrew is installed
 if ! command -v brew &>/dev/null; then
-  echo -e "\n💡 Homebrew is not installed. Installing Homebrew...\n"
+  echo -e "\nNote: Homebrew is not installed. Installing Homebrew...\n"
 
   # Run the Homebrew installation script and automatically press Enter
   yes '' | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || all_installed=false
@@ -59,27 +59,27 @@ if ! command -v brew &>/dev/null; then
 
   # Source the updated profile
   source ~/.bash_profile || source ~/.zprofile
-  echo -e "\n✅ Homebrew installation completed.\n"
+  echo -e "\nHomebrew installation completed.\n"
 else
-  echo -e "\n✅ Homebrew is already installed.\n"
+  echo -e "\nHomebrew is already installed.\n"
 fi
 
 # Check if ffmpeg is installed
 if ! ffmpeg -version &>/dev/null; then
-  echo -e "💡 ffmpeg is not installed. Installing ffmpeg...\n"
+  echo -e "Note: ffmpeg is not installed. Installing ffmpeg...\n"
   brew install ffmpeg || all_installed=false
-  echo -e "\n✅ ffmpeg installation completed.\n"
+  echo -e "\nffmpeg installation completed.\n"
 else
-  echo -e "✅ ffmpeg is already installed.\n"
+  echo -e "ffmpeg is already installed.\n"
 fi
 
 # Check if ImageMagick is installed
 if ! magick -version &>/dev/null; then
-  echo -e "💡 ImageMagick is not installed. Installing ImageMagick...\n"
+  echo -e "Note: ImageMagick is not installed. Installing ImageMagick...\n"
   brew install imagemagick || all_installed=false
-  echo -e "\n✅ ImageMagick installation completed.\n"
+  echo -e "\nImageMagick installation completed.\n"
 else
-  echo -e "✅ ImageMagick is already installed.\n"
+  echo -e "ImageMagick is already installed.\n"
 fi
 
 # Only print paths if all installations were successful
@@ -89,13 +89,13 @@ if $all_installed; then
   IMAGEMAGICK_PATH=$(which magick)
 
   # Print the paths with some formatting
-  echo -e "\n🔍 Paths for installed tools:"
+  echo -e "\nPaths for installed libraries:"
   echo -e "---------------------------------"
-  echo -e "📍 FFmpeg path: $FFMPEG_PATH"
-  echo -e "📍 ImageMagick path: $IMAGEMAGICK_PATH"
+  echo -e "FFmpeg path: $FFMPEG_PATH"
+  echo -e "ImageMagick path: $IMAGEMAGICK_PATH"
   echo -e "---------------------------------\n"
 
-  echo -e "🎉 All checks and installations are completed.\n"
+  echo -e "All checks and installations are completed.\n"
 else
-  echo -e "\n❌ An error occurred during one or more installations. Paths will not be printed.\n"
+  echo -e "\nError: An error occurred during one or more installations.\n"
 fi
