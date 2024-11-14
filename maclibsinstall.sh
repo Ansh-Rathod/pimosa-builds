@@ -21,29 +21,44 @@ else
   HOMEBREW_PREFIX="/opt/homebrew"
 fi
 
-# Function to check if a command exists
-command_exists() {
-  command -v "$1" &>/dev/null
+# Function to check if ffmpeg is installed and working
+check_ffmpeg() {
+  local version_output
+  version_output=$(ffmpeg -version 2>/dev/null)
+  if [ $? -eq 0 ] && [[ "$version_output" == *"ffmpeg version"* ]]; then
+    return 0
+  fi
+  return 1
 }
 
-# First check if both ffmpeg and ImageMagick are installed
-ffmpeg_exists=$(command_exists ffmpeg)
-imagemagick_exists=$(command_exists magick)
+# Function to check if ImageMagick is installed and working
+check_imagemagick() {
+  local version_output
+  version_output=$(magick -version 2>/dev/null)
+  if [ $? -eq 0 ] && [[ "$version_output" == *"ImageMagick"* ]]; then
+    return 0
+  fi
+  return 1
+}
+
+# Check if both tools are installed and working
+ffmpeg_exists=$(check_ffmpeg && echo true || echo false)
+imagemagick_exists=$(check_imagemagick && echo true || echo false)
 
 # Only proceed with Homebrew installation if either tool is missing
 if ! $ffmpeg_exists || ! $imagemagick_exists; then
   # Check if Homebrew needs to be installed
-  if ! command_exists brew; then
+  if ! brew --version &>/dev/null; then
     echo -e "\nNote: Homebrew is not installed. Installing Homebrew since one or more required tools are missing...\n"
     yes '' | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
+    
     # Add Homebrew to PATH
     if [[ "$ARCH" == "x86_64" ]]; then
       echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.bash_profile
     else
       echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
     fi
-
+    
     # Source the updated profile
     source ~/.bash_profile || source ~/.zprofile
     echo -e "\nHomebrew installation completed.\n"
@@ -67,13 +82,17 @@ if ! $ffmpeg_exists || ! $imagemagick_exists; then
   else
     echo -e "ImageMagick installation completed.\n"
   fi
+
+  echo -e "\nBoth ffmpeg and ImageMagick are already installed.\n"
 else
   echo -e "\nBoth ffmpeg and ImageMagick are already installed.\n"
 fi
 
 # Function to check if a command runs successfully
 check_command() {
-  if "$@" &>/dev/null; then
+  local version_output
+  version_output=$("$@" 2>/dev/null)
+  if [ $? -eq 0 ]; then
     return 0
   else
     return 1
@@ -97,22 +116,21 @@ if $ffmpeg_working && $imagemagick_working; then
   # Get the paths of ffmpeg and ImageMagick
   FFMPEG_PATH=$(which ffmpeg)
   IMAGEMAGICK_PATH=$(which magick)
-
+  
   # Print the paths with some formatting
   echo -e "\nPaths for installed tools:"
   echo -e "---------------------------------"
   echo -e "FFmpeg path: $FFMPEG_PATH"
   echo -e "ImageMagick path: $IMAGEMAGICK_PATH"
   echo -e "---------------------------------\n"
-
+  
   echo -e "All checks and installations are completed successfully."
 else
   if ! $ffmpeg_working; then
-    echo "- FFmpeg is not working properly\n"
+    echo -e "- FFmpeg is not working properly\n"
   fi
   if ! $imagemagick_working; then
-    echo "- ImageMagick is not working properly\n"
+    echo -e "- ImageMagick is not working properly\n"
   fi
   echo -e "Error: An error occurred during one or more installations."
 fi
-
