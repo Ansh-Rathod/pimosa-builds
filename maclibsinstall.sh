@@ -3,40 +3,21 @@
 # Set the HOME environment variable (if needed)
 export HOME="$HOME"
 
-# Source environment configuration files
-if [ -f ~/.bash_profile ]; then
-  source ~/.bash_profile
-fi
-
-if [ -f ~/.bashrc ]; then
-  source ~/.bashrc
-fi
-
-if [ -f ~/.profile ]; then
-  source ~/.profile
-fi
-
-if [ -f ~/.zshrc ]; then
-  source ~/.zshrc
-fi
-
-if [ -f ~/.zprofile ]; then
-  source ~/.zprofile
-fi
-
-if [ -f ~/.zlogin ]; then
-  source ~/.zlogin
-fi
+# Source environment configuration files (suppress output)
+if [ -f ~/.bash_profile ]; then source ~/.bash_profile &>/dev/null; fi
+if [ -f ~/.bashrc ]; then source ~/.bashrc &>/dev/null; fi
+if [ -f ~/.profile ]; then source ~/.profile &>/dev/null; fi
+if [ -f ~/.zshrc ]; then source ~/.zshrc &>/dev/null; fi
+if [ -f ~/.zprofile ]; then source ~/.zprofile &>/dev/null; fi
+if [ -f ~/.zlogin ]; then source ~/.zlogin &>/dev/null; fi
 
 # Determine the architecture
 ARCH=$(uname -m)
 
 # Set the default Homebrew installation path based on the architecture
 if [[ "$ARCH" == "x86_64" ]]; then
-  # Intel Macs
   HOMEBREW_PREFIX="/usr/local"
 else
-  # Apple Silicon Macs
   HOMEBREW_PREFIX="/opt/homebrew"
 fi
 
@@ -45,25 +26,22 @@ all_installed=true
 
 # Check if ffmpeg is installed
 ffmpeg_installed=true
-if ! ffmpeg -version &>/dev/null; then
+if ! command -v ffmpeg &>/dev/null; then
   ffmpeg_installed=false
   all_installed=false
 fi
 
 # Check if ImageMagick is installed
 imagemagick_installed=true
-if ! magick -version &>/dev/null; then
+if ! command -v magick &>/dev/null; then
   imagemagick_installed=false
   all_installed=false
 fi
 
 # Only install Homebrew if ffmpeg or ImageMagick need to be installed
 if ! $ffmpeg_installed || ! $imagemagick_installed; then
-  # Check if Homebrew is installed
   if ! command -v brew &>/dev/null; then
     echo -e "\nNote: Homebrew is not installed. Installing Homebrew...\n"
-
-    # Run the Homebrew installation script and automatically press Enter
     yes '' | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || all_installed=false
 
     # Add Homebrew to PATH
@@ -84,8 +62,12 @@ fi
 # Install ffmpeg if not already installed
 if ! $ffmpeg_installed; then
   echo -e "Note: ffmpeg is not installed. Installing ffmpeg...\n"
-  brew install ffmpeg || all_installed=false
-  echo -e "\nffmpeg installation completed.\n"
+  if ! brew install ffmpeg; then
+    all_installed=false
+  else
+    ffmpeg_installed=true
+    echo -e "\nffmpeg installation completed.\n"
+  fi
 else
   echo -e "ffmpeg is already installed.\n"
 fi
@@ -93,14 +75,18 @@ fi
 # Install ImageMagick if not already installed
 if ! $imagemagick_installed; then
   echo -e "Note: ImageMagick is not installed. Installing ImageMagick...\n"
-  brew install imagemagick || all_installed=false
-  echo -e "\nImageMagick installation completed.\n"
+  if ! brew install imagemagick; then
+    all_installed=false
+  else
+    imagemagick_installed=true
+    echo -e "\nImageMagick installation completed.\n"
+  fi
 else
   echo -e "ImageMagick is already installed.\n"
 fi
 
 # Only print paths if all installations were successful
-if $all_installed; then
+if $all_installed && $ffmpeg_installed && $imagemagick_installed; then
   # Get the paths of ffmpeg and ImageMagick
   FFMPEG_PATH=$(which ffmpeg)
   IMAGEMAGICK_PATH=$(which magick)
