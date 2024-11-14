@@ -43,29 +43,46 @@ fi
 # Variable to track if all installations were successful
 all_installed=true
 
-# Check if Homebrew is installed
-if ! command -v brew &>/dev/null; then
-  echo -e "\nNote: Homebrew is not installed. Installing Homebrew...\n"
-
-  # Run the Homebrew installation script and automatically press Enter
-  yes '' | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || all_installed=false
-
-  # Add Homebrew to PATH
-  if [[ "$ARCH" == "x86_64" ]]; then
-    echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.bash_profile
-  else
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-  fi
-
-  # Source the updated profile
-  source ~/.bash_profile || source ~/.zprofile
-  echo -e "\nHomebrew installation completed.\n"
-else
-  echo -e "\nHomebrew is already installed.\n"
+# Check if ffmpeg is installed
+ffmpeg_installed=true
+if ! ffmpeg -version &>/dev/null; then
+  ffmpeg_installed=false
+  all_installed=false
 fi
 
-# Check if ffmpeg is installed
-if ! ffmpeg -version &>/dev/null; then
+# Check if ImageMagick is installed
+imagemagick_installed=true
+if ! magick -version &>/dev/null; then
+  imagemagick_installed=false
+  all_installed=false
+fi
+
+# Only install Homebrew if ffmpeg or ImageMagick need to be installed
+if ! $ffmpeg_installed || ! $imagemagick_installed; then
+  # Check if Homebrew is installed
+  if ! command -v brew &>/dev/null; then
+    echo -e "\nNote: Homebrew is not installed. Installing Homebrew...\n"
+
+    # Run the Homebrew installation script and automatically press Enter
+    yes '' | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || all_installed=false
+
+    # Add Homebrew to PATH
+    if [[ "$ARCH" == "x86_64" ]]; then
+      echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.bash_profile
+    else
+      echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+    fi
+
+    # Source the updated profile
+    source ~/.bash_profile || source ~/.zprofile
+    echo -e "\nHomebrew installation completed.\n"
+  else
+    echo -e "\nHomebrew is already installed.\n"
+  fi
+fi
+
+# Install ffmpeg if not already installed
+if ! $ffmpeg_installed; then
   echo -e "Note: ffmpeg is not installed. Installing ffmpeg...\n"
   brew install ffmpeg || all_installed=false
   echo -e "\nffmpeg installation completed.\n"
@@ -73,8 +90,8 @@ else
   echo -e "ffmpeg is already installed.\n"
 fi
 
-# Check if ImageMagick is installed
-if ! magick -version &>/dev/null; then
+# Install ImageMagick if not already installed
+if ! $imagemagick_installed; then
   echo -e "Note: ImageMagick is not installed. Installing ImageMagick...\n"
   brew install imagemagick || all_installed=false
   echo -e "\nImageMagick installation completed.\n"
@@ -89,7 +106,7 @@ if $all_installed; then
   IMAGEMAGICK_PATH=$(which magick)
 
   # Print the paths with some formatting
-  echo -e "\nPaths for installed libraries:"
+  echo -e "\nPaths for installed tools:"
   echo -e "---------------------------------"
   echo -e "FFmpeg path: $FFMPEG_PATH"
   echo -e "ImageMagick path: $IMAGEMAGICK_PATH"
@@ -97,5 +114,5 @@ if $all_installed; then
 
   echo -e "All checks and installations are completed.\n"
 else
-  echo -e "\nError: An error occurred during one or more installations.\n"
+  echo -e "\nError: An error occurred during one or more installations. Paths will not be printed.\n"
 fi
