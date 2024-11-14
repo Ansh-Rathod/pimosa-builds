@@ -48,7 +48,7 @@ if ! $ffmpeg_exists || ! $imagemagick_exists; then
     source ~/.bash_profile || source ~/.zprofile
     echo -e "\nHomebrew installation completed.\n"
   else
-    echo -e "\nHomebrew is already installed.\n"
+    echo -e "\nHomebrew installation completed.\n"
   fi
 
   # Install missing tools
@@ -57,7 +57,7 @@ if ! $ffmpeg_exists || ! $imagemagick_exists; then
     brew install ffmpeg
     echo -e "\nffmpeg installation completed.\n"
   else
-    echo -e "ffmpeg is already installed.\n"
+    echo -e "ffmpeg installation completed.\n"
   fi
 
   if ! $imagemagick_exists; then
@@ -65,7 +65,7 @@ if ! $ffmpeg_exists || ! $imagemagick_exists; then
     brew install imagemagick
     echo -e "\nImageMagick installation completed.\n"
   else
-    echo -e "ImageMagick is already installed.\n"
+    echo -e "ImageMagick installation completed.\n"
   fi
 else
   echo -e "\nBoth ffmpeg and ImageMagick are already installed.\n"
