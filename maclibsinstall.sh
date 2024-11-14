@@ -50,6 +50,7 @@ if ! $ffmpeg_exists || ! $imagemagick_exists; then
   # Check if Homebrew needs to be installed
   if ! brew --version &>/dev/null; then
     echo -e "\nNote: Homebrew is not installed. Installing Homebrew since one or more required tools are missing...\n"
+    
     yes '' | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     
     # Add Homebrew to PATH
@@ -60,33 +61,39 @@ if ! $ffmpeg_exists || ! $imagemagick_exists; then
     fi
     
     # Source the updated profile
-    source ~/.bash_profile || source ~/.zprofile
+    source ~/.bash_profile 
+    source ~/.zprofile
+
     echo -e "\nHomebrew installation completed.\n"
   else
     echo -e "\nHomebrew installation completed.\n"
   fi
-
-  # Install missing tools
-  if ! $ffmpeg_exists; then
-    echo -e "Note: ffmpeg is not installed. Installing ffmpeg...\n"
-    brew install ffmpeg
-    echo -e "\nffmpeg installation completed.\n"
-  else
-    echo -e "ffmpeg installation completed.\n"
-  fi
-
-  if ! $imagemagick_exists; then
-    echo -e "Note: ImageMagick is not installed. Installing ImageMagick...\n"
-    brew install imagemagick
-    echo -e "\nImageMagick installation completed.\n"
-  else
-    echo -e "ImageMagick installation completed.\n"
-  fi
-
-  echo -e "\nBoth ffmpeg and ImageMagick are already installed.\n"
 else
   echo -e "\nBoth ffmpeg and ImageMagick are already installed.\n"
 fi
+
+# Install missing tools
+if ! $ffmpeg_exists; then
+  echo -e "Note: ffmpeg is not installed. Installing ffmpeg...\n"
+
+  brew install ffmpeg
+  
+  echo -e "\nffmpeg installation completed.\n"
+else
+  echo -e "ffmpeg installation completed.\n"
+fi
+
+if ! $imagemagick_exists; then
+  echo -e "Note: ImageMagick is not installed. Installing ImageMagick...\n"
+
+  brew install imagemagick
+
+  echo -e "\nImageMagick installation completed.\n"
+else
+  echo -e "ImageMagick installation completed.\n"
+fi
+
+echo -e "\nBoth ffmpeg and ImageMagick are already installed.\n"
 
 # Function to check if a command runs successfully
 check_command() {
