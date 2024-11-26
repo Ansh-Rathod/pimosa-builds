@@ -1,7 +1,15 @@
 <?xml version="1.0" standalone="yes"?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
-        <title>Pimosa</title>
+         <title>Pimosa</title>
+        <item>
+            <title>1.1.4</title>
+            <pubDate>Tue, 26 Nov 2024 20:44:33 +0530</pubDate>
+            <sparkle:version>14</sparkle:version>
+            <sparkle:shortVersionString>1.1.4</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
+            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="38077615" type="application/octet-stream" sparkle:edSignature="Vtzjadsgb3kn9GiOE2lEyaRpxDO6Ry05kEL8IW3SanF4ezyOeAvsqaXMl/x6rAQISx9eMBL6vvcsf2DI/egjBA=="/>
+        </item>
         <item>
             <title>1.1.2</title>
             <pubDate>Mon, 18 Nov 2024 15:52:31 +0530</pubDate>
