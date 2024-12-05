@@ -1,11 +1,15 @@
 # Pimosa
 Repository for macOS builds of the Pimosa app.
 
-Pimosa: Simple Video, Photo & Music Editing Tools in one app. Convert, edit, and enhance video, photos, and music files easily. Batch processing for faster work. simple tools for everyone.
+### Pimosa: Simple Video, Photo & Music Editing Tools in one app. 
+
+Convert, edit, and enhance video, photos, and music files easily. Batch processing for faster work. simple tools for everyone.
+
+<img src="./thumbnail.png" />
 
 Tools are organized into categories by file type:
 
-Video Tools:
+#### Video Tools:
 - Compress
 - Merge & Combine
 - Resize & Rotate
@@ -15,19 +19,19 @@ Video Tools:
 - Extract Audio
 - Trim & Cut
 
-Image Tools:
+#### Image Tools:
 - Convert Formats
 - Compress
 - Resize
 - Crop
 
-Audio Tools:
+#### Audio Tools:
 - Extract from Video
 - Convert Formats
 - Edit Metadata
 - Create Waveform Videos
 
-Video Playground:
+#### Video Playground:
 - Crop Videos
 - Combine Clips
 
