@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# older than (1.1.8+18) versions of Pimosa app uses this script to install the libraries. 
+# new and upcoming versions will use the install_on_mac.sh script.  
 echo "v1"
 # Set the HOME environment variable (if needed)
 export HOME="$HOME"
