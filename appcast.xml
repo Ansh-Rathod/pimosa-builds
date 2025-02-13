@@ -3,6 +3,14 @@
     <channel>
          <title>Pimosa</title>
         <item>
+            <title>1.1.9</title>
+            <pubDate>Thu, 13 Feb 2025 21:17:25 +0530</pubDate>
+            <sparkle:version>19</sparkle:version>
+            <sparkle:shortVersionString>1.1.9</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
+            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="39242431" type="application/octet-stream" sparkle:edSignature="PPVRC6hki0mIwDi2u9Y3VjeIFl+QMcJSWrga9MlXKL7Br/fp0kWVCoexoNFRSrtAISh3WIPatDKL9I8LRMcmAQ=="/>
+        </item>
+        <item>
             <title>1.1.8</title>
             <pubDate>Tue, 07 Jan 2025 18:44:28 +0530</pubDate>
             <sparkle:version>18</sparkle:version>
