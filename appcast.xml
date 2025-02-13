@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
     <channel>
-         <title>Pimosa</title>
+        <title>Pimosa</title>
         <item>
             <title>1.1.9</title>
             <pubDate>Thu, 13 Feb 2025 21:48:21 +0530</pubDate>
