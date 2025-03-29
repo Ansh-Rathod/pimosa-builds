@@ -1,112 +1,36 @@
 <?xml version="1.0" standalone="yes"?>
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
-    <channel>
-        <title>Pimosa</title>
-
-        <item>
-            <title>1.2.4</title>
-            <pubDate>Thu, 27 Mar 2025 17:51:57 +0530</pubDate>
-            <sparkle:version>24</sparkle:version>
-            <sparkle:shortVersionString>1.2.4</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="39481374" type="application/octet-stream" sparkle:edSignature="kE1kkPEUKFdvac1dgqQAi65dQcy4mi3/tcFXh597/gIj39nHig4oAL2WVDsL5ytJmSeNxPlxsQ9Mhb55DC/GDA=="/>
-        </item>
-        <item>
-            <title>1.2.3</title>
-            <pubDate>Sun, 09 Mar 2025 14:56:24 +0530</pubDate>
-            <sparkle:version>23</sparkle:version>
-            <sparkle:shortVersionString>1.2.3</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="39355914" type="application/octet-stream" sparkle:edSignature="i/HZvDOAUvT3iofnfk4gwvO9/KEVyRw4d2C3QUtR46t1SaChYmIp/VUGzXRsIx3fTuRm0GrZTUFxI7YXa0EDAg=="/>
-        </item>
-        <item>
-            <title>1.2.2</title>
-            <pubDate>Fri, 21 Feb 2025 15:19:02 +0530</pubDate>
-            <sparkle:version>22</sparkle:version>
-            <sparkle:shortVersionString>1.2.2</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="39183370" type="application/octet-stream" sparkle:edSignature="oE4TQ/CBqyZfeWY8HnU8ovSuyDhhkYuancYST/kDFrxfk2MxJiWsLNq7IrDnDHDjcXgB9pyxc3TkhhnmwsMIBA=="/>
-        </item>
-        <item>
-            <title>1.1.9</title>
-            <pubDate>Thu, 13 Feb 2025 21:48:21 +0530</pubDate>
-            <sparkle:version>19</sparkle:version>
-            <sparkle:shortVersionString>1.1.9</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="39067655" type="application/octet-stream" sparkle:edSignature="DgXhSPR3MsNlnx3yvQdZxqeyYrNk//8XUAZDSRhT4yuus2XziBMRHIXw6kz6D6EO6QvezTrD5Hf99n9kxG3pCA=="/>
-        </item>
-        <item>
-            <title>1.1.8</title>
-            <pubDate>Tue, 07 Jan 2025 18:44:28 +0530</pubDate>
-            <sparkle:version>18</sparkle:version>
-            <sparkle:shortVersionString>1.1.8</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="38275964" type="application/octet-stream" sparkle:edSignature="bLFBxNTwZLJPFbfY/eLyxsJjzKeRQJ3/DI5vRQSP6yYvgbE6pX//CADnlMIMavL82wXEE0o2G3GPD5YL3GKBBg=="/>
-        </item>
-          <item>
-            <title>1.1.7</title>
-            <pubDate>Sat, 04 Jan 2025 20:23:54 +0530</pubDate>
-            <sparkle:version>17</sparkle:version>
-            <sparkle:shortVersionString>1.1.7</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="38269636" type="application/octet-stream" sparkle:edSignature="cJv4jqzYh1Xd/i9ydQRg+xvwtJNsE/gtgP9RIgDQh9kFLsLx+QTRkc+jmPcqX63ajyI/IWi2MEzTA8UYjcC/Dg=="/>
-        </item>
-        <item>
-            <title>1.1.6</title>
-            <pubDate>Sun, 22 Dec 2024 17:11:07 +0530</pubDate>
-            <sparkle:version>16</sparkle:version>
-            <sparkle:shortVersionString>1.1.6</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="40739860" type="application/octet-stream" sparkle:edSignature="BMlsI5j9L5ACf5M6fvPWiCJBbvCmy42HqYMaduQwB5yRzEGY3pUz0ZBi7ESPZyr1W5+OpYfn4JhKkkM5tHwmDA=="/>
-        </item>
-        <item>
-            <title>1.1.5</title>
-            <pubDate>Wed, 04 Dec 2024 11:15:22 +0530</pubDate>
-            <sparkle:version>15</sparkle:version>
-            <sparkle:shortVersionString>1.1.5</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="38076222" type="application/octet-stream" sparkle:edSignature="V+P47u6/y5/SwvZi+L17+IiT3+DD88YnRYbb98RASiJbp8387kYJl5c/rtdW9OofC22SHQbR6uNBYmyAhNUdBA=="/>
-        </item>
-        <item>
-            <title>1.1.4</title>
-            <pubDate>Tue, 26 Nov 2024 20:44:33 +0530</pubDate>
-            <sparkle:version>14</sparkle:version>
-            <sparkle:shortVersionString>1.1.4</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip" length="38077615" type="application/octet-stream" sparkle:edSignature="Vtzjadsgb3kn9GiOE2lEyaRpxDO6Ry05kEL8IW3SanF4ezyOeAvsqaXMl/x6rAQISx9eMBL6vvcsf2DI/egjBA=="/>
-        </item>
-        <item>
-            <title>1.1.2</title>
-            <pubDate>Mon, 18 Nov 2024 15:52:31 +0530</pubDate>
-            <sparkle:version>12</sparkle:version>
-            <sparkle:shortVersionString>1.1.2</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure
-                url="https://github.com/Ansh-Rathod/pimosa-builds/releases/download/v1.1.2%2B12/Pimosa.zip"
-                length="40598033" type="application/octet-stream"
-                sparkle:edSignature="hHqRcEFH7nbqIrpvxI3tuN03lreucbnhpLTIGuvtW9sVCMk0b4KsTWUeCqNVdlWc/JDs9aX3Hh0roka+AyoKAA==" />
-        </item>
-        <item>
-            <title>1.1.1</title>
-            <pubDate>Wed, 09 Oct 2024 10:17:15 +0530</pubDate>
-            <sparkle:version>11</sparkle:version>
-            <sparkle:shortVersionString>1.1.1</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure
-                url="https://github.com/Ansh-Rathod/pimosa-builds/releases/download/v1.1.1%2B11/Pimosa.zip"
-                length="37655985" type="application/octet-stream"
-                sparkle:edSignature="IgRI7s1q+eDH19SfSGZ7Haw4USTbQMzb6UkA/CaNbhnGFGqkI5/8drHni66oAbxsniMuYh2cciEfbNSgVbH0Ag==" />
-        </item>
-        <item>
-            <title>1.1.0</title>
-            <pubDate>Mon, 07 Oct 2024 12:23:21 +0530</pubDate>
-            <sparkle:version>10</sparkle:version>
-            <sparkle:shortVersionString>1.1.0</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
-            <enclosure
-                url="https://github.com/Ansh-Rathod/pimosa-builds/releases/download/v1.1.0%2B10/Pimosa.zip"
-                length="37660103" type="application/octet-stream"
-                sparkle:edSignature="ta8Hn9aUt9ANm613xV9KFIJMJsfsfDiUv/dwUV//pjvfw3iTZwG7Vjb6aSj8mas3FLKVXmu4Lj3NJQnNG+A/Ag==" />
-        </item>
-    </channel>
+  <channel>
+    <title>Pimosa</title>
+    <item>
+      <title>1.2.4</title>
+      <pubDate>Sat, 29 Mar 2025 13:36:04 +0530</pubDate>
+      <sparkle:version>24</sparkle:version>
+      <sparkle:shortVersionString>1.2.4</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
+      <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip"
+        length="39481495" type="application/octet-stream"
+        sparkle:edSignature="+4he129asUxek1DpVRsIqP74m6xI26UFlOYTN8SS5/x7YpSHeVud8EG8m9J+EulknEm0sNrCsI4yEBhQkTfPDw==" />
+    </item>
+    <item>
+      <title>1.2.3</title>
+      <pubDate>Sun, 09 Mar 2025 14:56:24 +0530</pubDate>
+      <sparkle:version>23</sparkle:version>
+      <sparkle:shortVersionString>1.2.3</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
+      <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip"
+        length="39355914" type="application/octet-stream"
+        sparkle:edSignature="i/HZvDOAUvT3iofnfk4gwvO9/KEVyRw4d2C3QUtR46t1SaChYmIp/VUGzXRsIx3fTuRm0GrZTUFxI7YXa0EDAg==" />
+    </item>
+    <item>
+      <title>1.2.2</title>
+      <pubDate>Fri, 21 Feb 2025 15:19:02 +0530</pubDate>
+      <sparkle:version>22</sparkle:version>
+      <sparkle:shortVersionString>1.2.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>10.14.6</sparkle:minimumSystemVersion>
+      <enclosure url="https://pub-e98ac9d8ff7347b29207e39fd6b3cb89.r2.dev/Pimosa.zip"
+        length="39183370" type="application/octet-stream"
+        sparkle:edSignature="oE4TQ/CBqyZfeWY8HnU8ovSuyDhhkYuancYST/kDFrxfk2MxJiWsLNq7IrDnDHDjcXgB9pyxc3TkhhnmwsMIBA==" />
+    </item>
+  </channel>
 </rss>
