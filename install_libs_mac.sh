@@ -147,13 +147,24 @@ check_exiftool() {
   return 1
 }
 
+# Function to check if pdfcpu is installed and working
+check_pdfcpu() {
+  local version_output
+  version_output=$(pdfcpu version 2>/dev/null)
+  if [ $? -eq 0 ] && [[ "$version_output" == *"pdfcpu version"* ]]; then
+    return 0
+  fi
+  return 1
+}
+
 # Check if tools are installed and working
 ffmpeg_exists=$(check_ffmpeg && echo true || echo false)
 imagemagick_exists=$(check_imagemagick && echo true || echo false)
 exiftool_exists=$(check_exiftool && echo true || echo false)
+pdfcpu_exists=$(check_pdfcpu && echo true || echo false)
 
 # Only proceed with Homebrew installation if any tool is missing
-if ! $ffmpeg_exists || ! $imagemagick_exists || ! $exiftool_exists; then
+if ! $ffmpeg_exists || ! $imagemagick_exists || ! $exiftool_exists || ! $pdfcpu_exists; then
   # Check if Homebrew needs to be installed
   if ! brew --version &>/dev/null; then
     echo -e "\nNote: Homebrew is not installed. Installing Homebrew since one or more required tools are missing...\n"
@@ -236,6 +247,18 @@ else
   echo -e "ExifTool installation completed.\n"
 fi
 
+if ! $pdfcpu_exists; then
+  echo -e "Note: pdfcpu is not installed. Installing pdfcpu...\n"
+  if ! brew install pdfcpu; then
+    echo "Error: Failed to install pdfcpu"
+    echo -e "Error: An error occurred during one or more installations."
+    exit 1
+  fi
+  echo -e "\npdfcpu installation completed.\n"
+else
+  echo -e "pdfcpu installation completed.\n"
+fi
+
 echo -e "\nAll required tools are installed.\n"
 
 # Function to check if a command runs successfully
@@ -253,6 +276,7 @@ check_command() {
 ffmpeg_working=false
 imagemagick_working=false
 exiftool_working=false
+pdfcpu_working=false
 
 if check_command ffmpeg -version; then
   ffmpeg_working=true
@@ -266,12 +290,17 @@ if check_command exiftool -ver; then
   exiftool_working=true
 fi
 
+if check_command pdfcpu version; then
+  pdfcpu_working=true
+fi
+
 # Only print paths if all tools are working correctly
-if $ffmpeg_working && $imagemagick_working && $exiftool_working; then
+if $ffmpeg_working && $imagemagick_working && $exiftool_working && $pdfcpu_working; then
   # Get the paths of the tools
   FFMPEG_PATH=$(which ffmpeg)
   IMAGEMAGICK_PATH=$(which magick)
   EXIFTOOL_PATH=$(which exiftool)
+  PDFCPU_PATH=$(which pdfcpu)
   
   # Print the paths with some formatting
   echo -e "\nPaths for installed tools:"
@@ -279,6 +308,7 @@ if $ffmpeg_working && $imagemagick_working && $exiftool_working; then
   echo -e "FFmpeg path: $FFMPEG_PATH"
   echo -e "ImageMagick path: $IMAGEMAGICK_PATH"
   echo -e "ExifTool path: $EXIFTOOL_PATH"
+  echo -e "pdfcpu path: $PDFCPU_PATH"
   echo -e "---------------------------------\n"
   
   echo -e "All checks and installations are completed successfully."
@@ -292,6 +322,8 @@ else
   if ! $exiftool_working; then
     echo -e "- ExifTool is not working properly\n"
   fi
+  if ! $pdfcpu_working; then
+    echo -e "- pdfcpu is not working properly\n"
+  fi
   echo -e "Error: An error occurred during one or more installations."
 fi
-
