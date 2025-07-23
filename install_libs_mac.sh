@@ -151,7 +151,7 @@ check_exiftool() {
 check_pdfcpu() {
   local version_output
   version_output=$(pdfcpu version 2>/dev/null)
-  if [ $? -eq 0 ] && [[ "$version_output" == *"pdfcpu version"* ]]; then
+  if [ $? -eq 0 ] && [[ "$version_output" == *"pdfcpu:"* ]]; then
     return 0
   fi
   return 1
