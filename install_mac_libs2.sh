@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script is used by Pimosa starting from version 1.1.9 (build 19).
-echo "v3"
+echo "v4"
 # Set the HOME environment variable (if needed)
 export HOME="$HOME"
 
@@ -10,6 +10,8 @@ export NONINTERACTIVE=1
 export CI=1
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_ENV_HINTS=1
+export HOMEBREW_NO_COLOR=1
+export HOMEBREW_NO_EMOJI=1
 
 # Detect current shell
 CURRENT_SHELL=$(basename "$SHELL")
@@ -153,12 +155,15 @@ fail_install() {
 
 # brew has no apt-style -y for formulae; pipe yes so leftover [y/N] prompts
 # in the PTY never block. --overwrite replaces colliding files without asking.
+# --quiet hides curl progress bars (ffmpeg-full has dozens of bottles); those
+# rewrite the same line thousands of times and freeze the in-app terminal.
 brew_install() {
   local formula="$1"
   if [ -z "$BREW_BIN" ]; then
     fail_install "$formula"
   fi
-  if ! yes | "$BREW_BIN" install --overwrite "$formula"; then
+  echo "Installing $formula..."
+  if ! yes | "$BREW_BIN" install --quiet --overwrite "$formula"; then
     fail_install "$formula"
   fi
 }
