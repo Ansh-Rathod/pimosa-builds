@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script is used by Pimosa starting from version 1.1.9 (build 19).
-echo "v4"
+echo "v5"
 # Set the HOME environment variable (if needed)
 export HOME="$HOME"
 
@@ -34,96 +34,22 @@ else
   HOMEBREW_PREFIX="/opt/homebrew"
 fi
 
-# Function to prompt for password with Cancel button using AppleScript
-prompt_password() {
-    local attempt=$1
-    local show_error=$2
-    local dialog_text="Pimosa needs administrator access to install required libraries for image manipulation and video processing."
-    
-    # Add error message only if show_error is true
-    if [ "$show_error" = "true" ]; then
-        dialog_text="$dialog_text
-
-❌ Incorrect password. Attempt $attempt of 3."
-    fi
-
-    osascript <<EOT
-        try
-            display dialog "$dialog_text" & return & return & "Please enter your password:" \
-                default answer "" \
-                with hidden answer \
-                buttons {"Cancel", "OK"} \
-                default button 2 \
-                with icon caution
-            return text returned of result
-        on error
-            return "CANCELLED"
-        end try
-EOT
-}
-
-# Function to validate password using sudo with proper error handling
-validate_password() {
-    local password="$1"
-    echo "$password" | sudo -S -v >/dev/null 2>&1
-    return $?
-}
-
-ask_for_password() {
-  local MAX_ATTEMPTS=3
-  local ATTEMPT=1
-  local PASSWORD=""
-  local SHOW_ERROR="false"
-  
-  # Ensure script is run on macOS
-  if [[ "$(uname)" != "Darwin" ]]; then
-      echo "❌ This script requires macOS due to AppleScript usage."
-      return 1
+# macOS sudo asks on this terminal. The system authentication panel never
+# returns a password, and Homebrew's installer calls sudo itself, so that
+# panel cannot unlock the install. CI / NONINTERACTIVE make the installer
+# use `sudo -n`, which only works after this timestamp exists.
+# sudo retries a bad password itself. Cancel is Ctrl-C or a failed attempt.
+authorize_admin() {
+  echo ""
+  echo "macOS needs your password to install Homebrew."
+  echo "Type it in the terminal below and press Return."
+  # Newline in the prompt so the in-app log (line-based) shows it.
+  if ! /usr/bin/sudo -p $'Password:\n' -v; then
+    echo "Installation canceled or authentication failed."
+    return 1
   fi
-
-  # Password prompt and validation loop
-  while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
-      # Clear any previous sudo cache
-      sudo -k
-      
-      # Get password from prompt with attempt count and error state
-      PASSWORD=$(prompt_password $ATTEMPT $SHOW_ERROR)
-      
-      # Handle Cancel button
-      if [ "$PASSWORD" = "CANCELLED" ]; then
-          echo "Installation canceled by the user."
-          return 1
-      fi
-      
-      # Check if password is empty
-      if [ -z "$PASSWORD" ]; then
-          SHOW_ERROR="true"
-          ((ATTEMPT++))
-          continue
-      fi
-      
-      # Validate the password
-      if validate_password "$PASSWORD"; then
-          echo "✅ Sudo access granted."
-          unset PASSWORD
-          return 0
-      else
-          SHOW_ERROR="true"
-          echo "❌ Incorrect password. Attempt $ATTEMPT of $MAX_ATTEMPTS."
-          ((ATTEMPT++))
-      fi
-      
-      sleep 1
-  done
-
-  # Check if maximum attempts were reached
-  if [ $ATTEMPT -gt $MAX_ATTEMPTS ]; then
-      echo "❌ Maximum password attempts reached. Please try again later."
-      unset PASSWORD
-      return 1
-  fi
-
-  trap 'echo ""; echo "❌ Script interrupted."; unset PASSWORD; exit 1' INT TERM
+  echo "Sudo access granted."
+  return 0
 }
 
 resolve_brew() {
@@ -281,8 +207,7 @@ if ! $ffmpeg_exists || ! $imagemagick_exists || ! $exiftool_exists || ! $pdfcpu_
   if [ -z "$BREW_BIN" ] || ! "$BREW_BIN" --version &>/dev/null; then
     echo -e "\nNote: Homebrew is not installed. Installing Homebrew since one or more required tools are missing...\n"
     
-    # Ask for password and check if it was provided successfully
-    if ! ask_for_password; then
+    if ! authorize_admin; then
         echo -e "\nSkipping Homebrew installation since authentication failed.\n"
         echo -e "Error: An error occurred during one or more installations."
         exit 1
