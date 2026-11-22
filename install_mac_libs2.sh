@@ -183,15 +183,6 @@ check_pdfcpu() {
   return 1
 }
 
-check_ytdlp() {
-  local version_output
-  version_output=$(yt-dlp --version 2>/dev/null)
-  if [ $? -eq 0 ]; then
-    return 0
-  fi
-  return 1
-}
-
 load_brew_env
 
 # Check if tools are installed and working
@@ -199,10 +190,9 @@ ffmpeg_exists=$(check_ffmpeg_full && echo true || echo false)
 imagemagick_exists=$(check_imagemagick && echo true || echo false)
 exiftool_exists=$(check_exiftool && echo true || echo false)
 pdfcpu_exists=$(check_pdfcpu && echo true || echo false)
-ytdlp_exists=$(check_ytdlp && echo true || echo false)
 
 # Only proceed with Homebrew installation if any tool is missing
-if ! $ffmpeg_exists || ! $imagemagick_exists || ! $exiftool_exists || ! $pdfcpu_exists || ! $ytdlp_exists; then
+if ! $ffmpeg_exists || ! $imagemagick_exists || ! $exiftool_exists || ! $pdfcpu_exists; then
   # Check if Homebrew needs to be installed
   if [ -z "$BREW_BIN" ] || ! "$BREW_BIN" --version &>/dev/null; then
     echo -e "\nNote: Homebrew is not installed. Installing Homebrew since one or more required tools are missing...\n"
@@ -281,14 +271,6 @@ else
   echo -e "pdfcpu installation completed.\n"
 fi
 
-if ! $ytdlp_exists; then
-  echo -e "Note: yt-dlp is not installed. Installing yt-dlp...\n"
-  brew_install yt-dlp
-  echo -e "\nyt-dlp installation completed.\n"
-else
-  echo -e "yt-dlp installation completed.\n"
-fi
-
 echo -e "\nAll required tools are installed.\n"
 
 # Function to check if a command runs successfully
@@ -307,7 +289,6 @@ ffmpeg_working=false
 imagemagick_working=false
 exiftool_working=false
 pdfcpu_working=false
-ytdlp_working=false
 
 FFMPEG_PATH=$(resolve_ffmpeg_path) || true
 if [ -n "$FFMPEG_PATH" ] && ffmpeg_bin_works "$FFMPEG_PATH"; then
@@ -326,17 +307,12 @@ if check_command pdfcpu version; then
   pdfcpu_working=true
 fi
 
-if check_command yt-dlp --version; then
-  ytdlp_working=true
-fi
-
 # Only print paths if all tools are working correctly
-if $ffmpeg_working && $imagemagick_working && $exiftool_working && $pdfcpu_working && $ytdlp_working; then
+if $ffmpeg_working && $imagemagick_working && $exiftool_working && $pdfcpu_working; then
   # Get the paths of the tools
   IMAGEMAGICK_PATH=$(which magick)
   EXIFTOOL_PATH=$(which exiftool)
   PDFCPU_PATH=$(which pdfcpu)
-  YTDLP_PATH=$(which yt-dlp)
   
   # Print the paths with some formatting
   echo -e "\nPaths for installed tools:"
@@ -345,7 +321,6 @@ if $ffmpeg_working && $imagemagick_working && $exiftool_working && $pdfcpu_worki
   echo -e "ImageMagick path: $IMAGEMAGICK_PATH"
   echo -e "ExifTool path: $EXIFTOOL_PATH"
   echo -e "pdfcpu path: $PDFCPU_PATH"
-  echo -e "yt-dlp path: $YTDLP_PATH"
   echo -e "---------------------------------\n"
   
   echo -e "All checks and installations are completed successfully."
@@ -361,9 +336,6 @@ else
   fi
   if ! $pdfcpu_working; then
     echo -e "- pdfcpu is not working properly\n"
-  fi
-  if ! $ytdlp_working; then
-    echo -e "- yt-dlp is not working properly\n"
   fi
   echo -e "Error: An error occurred during one or more installations."
 fi
